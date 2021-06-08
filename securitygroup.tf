@@ -1,7 +1,7 @@
 resource "aws_security_group" "demo" {
   name        = "demo"
   description = "Security group for demo node"
-  vpc_id      = "${aws_vpc.demo.id}"
+  vpc_id      = aws_vpc.demo.id
 
   egress {
     from_port   = 0
@@ -10,29 +10,27 @@ resource "aws_security_group" "demo" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = "${
-    tomap({
-     "Name" = "sg-demo",
-    })
-  }"
+  tags = (tomap({
+    "Name" = "sg-demo",
+  }))
 }
 
 resource "aws_security_group_rule" "demo-ingress-ssh" {
-  description              = "SSH Access for worker nodes"
-  from_port                = 22
-  protocol                 = "tcp"
-  security_group_id        = "${aws_security_group.demo.id}"
-  to_port                  = 22
-  type                     = "ingress"
-  cidr_blocks              = ["${local.workstation-external-cidr}"]
+  description       = "SSH Access for worker nodes"
+  from_port         = 22
+  protocol          = "tcp"
+  security_group_id = aws_security_group.demo.id
+  to_port           = 22
+  type              = "ingress"
+  cidr_blocks       = ["${local.workstation-external-cidr}"]
 }
 
 resource "aws_security_group_rule" "demo-ingress-http" {
-  description              = "HTTP Access for worker nodes"
-  from_port                = 80
-  protocol                 = "tcp"
-  security_group_id        = "${aws_security_group.demo.id}"
-  to_port                  = 80
-  type                     = "ingress"
-  cidr_blocks              = ["0.0.0.0/0"]
+  description       = "HTTP Access for worker nodes"
+  from_port         = 80
+  protocol          = "tcp"
+  security_group_id = aws_security_group.demo.id
+  to_port           = 80
+  type              = "ingress"
+  cidr_blocks       = ["0.0.0.0/0"]
 }
