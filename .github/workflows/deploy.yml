@@ -1,9 +1,11 @@
 name: Deploy Infra
 
-on: [push]
+on:
+  workflow_run:
+    workflows: ["Security Scanning"
 
 jobs:
-  scan:
+  Deploy Infra:
     runs-on: ubuntu-latest
 
     steps:
