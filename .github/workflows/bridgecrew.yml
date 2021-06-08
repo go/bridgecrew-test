@@ -1,6 +1,6 @@
 name: Security Scanning
 
-on: [push]
+on: [pull_request]
 
 jobs:
   scan:
@@ -9,6 +9,6 @@ jobs:
     steps:
     - name: Run Bridgecrew 
       id: Bridgecrew
-      uses: go/bridgecrew-action@master
+      uses: bridecrewio/bridgecrew-action@master
       with:
         api-key: ${{ secrets.BRIDGECREW_API_KEY }}
