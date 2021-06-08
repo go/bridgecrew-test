@@ -2,7 +2,10 @@ name: Deploy Infra
 
 on:
   workflow_run:
-    workflows: ["Security Scanning"
+    workflows: ["Security Scanning"]
+    branches: [master]
+    types:
+      - completed
 
 jobs:
   Deploy Infra:
