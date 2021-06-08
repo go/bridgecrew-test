@@ -9,6 +9,6 @@ jobs:
     steps:
     - name: Run Bridgecrew 
       id: Bridgecrew
-      uses: bridgecrewio/bridgecrew-action@${{ GITHUB_SHA }}
+      uses: bridgecrewio/bridgecrew-action@master
       with:
         api-key: ${{ secrets.BRIDGECREW_API_KEY }}
