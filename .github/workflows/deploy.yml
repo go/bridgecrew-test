@@ -8,7 +8,7 @@ on:
       - completed
 
 jobs:
-  Deploy Infra:
+  terraform:
     runs-on: ubuntu-latest
 
     steps:
