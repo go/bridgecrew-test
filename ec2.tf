@@ -26,7 +26,9 @@ resource "aws_instance" "bridgecrew-demo" {
     encrypted = true
   }
 
-  tags = {
-    Name = "${var.instance_name}"
-  }
+  tags = (tomap({
+    "Name"    = "${var.instance_name}",
+    "owner"   = "g-chiba",
+    "service" = "bridgecrew-demo"
+  }))
 }

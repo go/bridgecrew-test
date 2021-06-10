@@ -12,7 +12,9 @@ resource "aws_vpc" "bridgecrew-demo" {
   enable_dns_support   = true
 
   tags = (tomap({
-    "Name" = "bridgecrew-demo-vpc",
+    "Name"    = "bridgecrew-demo-vpc",
+    "owner"   = "g-chiba",
+    "service" = "bridgecrew-demo"
   }))
 }
 
@@ -25,12 +27,19 @@ resource "aws_subnet" "bridgecrew-demo" {
   map_public_ip_on_launch = true
 
   tags = (tomap({
-    "Name" = "bridgecrew-demo-subnet0${count.index}",
+    "Name"    = "bridgecrew-demo-subnet0${count.index}",
+    "owner"   = "g-chiba",
+    "service" = "bridgecrew-demo"
   }))
 }
 
 resource "aws_internet_gateway" "bridgecrew-demo" {
   vpc_id = aws_vpc.bridgecrew-demo.id
+
+  tags = (tomap({
+    "owner"   = "g-chiba",
+    "service" = "bridgecrew-demo"
+  }))
 }
 
 resource "aws_route_table" "bridgecrew-demo" {
@@ -40,6 +49,11 @@ resource "aws_route_table" "bridgecrew-demo" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.bridgecrew-demo.id
   }
+
+  tags = (tomap({
+    "owner"   = "g-chiba",
+    "service" = "bridgecrew-demo"
+  }))
 }
 
 resource "aws_route_table_association" "bridgecrew-demo" {
@@ -67,6 +81,11 @@ resource "aws_iam_role" "bridgecrew-demo" {
   ]
 }
 EOF
+
+  tags = (tomap({
+    "owner"   = "g-chiba",
+    "service" = "bridgecrew-demo"
+  }))
 }
 
 resource "aws_flow_log" "bridgecrew-demo" {

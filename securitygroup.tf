@@ -1,5 +1,5 @@
 resource "aws_default_security_group" "default" {
-  vpc_id      = aws_vpc.bridgecrew-demo.id
+  vpc_id = aws_vpc.bridgecrew-demo.id
 }
 
 resource "aws_security_group" "bridgecrew-demo" {
@@ -15,7 +15,9 @@ resource "aws_security_group" "bridgecrew-demo" {
   }
 
   tags = (tomap({
-    "Name" = "bridgecrew-demo-sg",
+    "Name"    = "bridgecrew-demo-sg",
+    "owner"   = "g-chiba",
+    "service" = "bridgecrew-demo"
   }))
 }
 
