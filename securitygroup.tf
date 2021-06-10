@@ -21,6 +21,16 @@ resource "aws_security_group" "bridgecrew-demo" {
   }))
 }
 
+resource "aws_security_group_rule" "bridgecrew-demo-secure-ssh" {
+  description       = "Secure SSH Access from Home"
+  from_port         = 22
+  protocol          = "tcp"
+  security_group_id = aws_security_group.bridgecrew-demo.id
+  to_port           = 22
+  type              = "ingress"
+  cidr_blocks       = ["180.59.50.250/32"]
+}
+
 resource "aws_security_group_rule" "bridgecrew-demo-ingress-ssh" {
   description       = "SSH Access from Labs"
   from_port         = 22
