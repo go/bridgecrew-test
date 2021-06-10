@@ -22,6 +22,10 @@ resource "aws_instance" "bridgecrew-demo" {
   key_name               = var.key_name
   monitoring             = true
 
+  root_block_device {
+    encrypted            = true
+  }
+
   tags = {
     Name = "${var.instance_name}"
   }
