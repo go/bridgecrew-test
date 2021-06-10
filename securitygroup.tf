@@ -1,6 +1,4 @@
 resource "aws_default_security_group" "default" {
-  name        = "default"
-  description = "Default security group"
   vpc_id      = aws_vpc.bridgecrew-demo.id
 }
 
