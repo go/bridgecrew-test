@@ -14,13 +14,17 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
-resource "aws_instance" "demo" {
+resource "aws_instance" "bridgecrew-demo" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
-  vpc_security_group_ids = ["${aws_security_group.demo.id}"]
-  subnet_id              = aws_subnet.demo.1.id
+  vpc_security_group_ids = ["${aws_security_group.bridgecrew-demo.id}"]
+  subnet_id              = aws_subnet.bridgecrew-demo.1.id
   key_name               = var.key_name
   monitoring             = true
+
+  root_block_device {
+    encrypted            = true
+  }
 
   tags = {
     Name = "${var.instance_name}"
