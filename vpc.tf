@@ -48,3 +48,30 @@ resource "aws_route_table_association" "bridgecrew-demo" {
   subnet_id      = aws_subnet.bridgecrew-demo.*.id[count.index]
   route_table_id = aws_route_table.bridgecrew-demo.id
 }
+
+resource "aws_iam_role" "bridgecrew-demo" {
+  name = "bridgecrew-demo"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "vpc-flow-logs.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_flow_log" "bridgecrew-demo" {
+  iam_role_arn    = aws_iam_role.bridgecrew-demo.arn
+  log_destination = "arn:aws:logs:ap-northeast-1:682277861596:log-group:vpc-flowlogs:*"
+  traffic_type    = "ALL"
+  vpc_id          = aws_vpc.bridgecrew-demo.id
+}
