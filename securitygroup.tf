@@ -22,7 +22,7 @@ resource "aws_security_group_rule" "demo-ingress-ssh" {
   security_group_id = aws_security_group.demo.id
   to_port           = 22
   type              = "ingress"
-  cidr_blocks       = ["157.2.48.247"]
+  cidr_blocks       = ["157.2.48.247/32"]
 }
 
 resource "aws_security_group_rule" "demo-ingress-http" {
