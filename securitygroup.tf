@@ -1,6 +1,12 @@
+resource "aws_default_security_group" "default" {
+  name        = "default"
+  description = "Default security group"
+  vpc_id      = aws_vpc.bridgecrew-demo.id
+}
+
 resource "aws_security_group" "bridgecrew-demo" {
   name        = "bridgecrew-demo"
-  description = "Security group for demo "
+  description = "Security group for demo"
   vpc_id      = aws_vpc.bridgecrew-demo.id
 
   egress {

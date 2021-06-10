@@ -23,7 +23,7 @@ resource "aws_instance" "bridgecrew-demo" {
   monitoring             = true
 
   root_block_device {
-    encrypted            = true
+    encrypted = true
   }
 
   tags = {
